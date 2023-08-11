@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33529.622
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CobimExplorer", "CobimExplorer\CobimExplorer.csproj", "{427DD79F-7A6F-496C-91A0-BFABB2BD4B68}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{427DD79F-7A6F-496C-91A0-BFABB2BD4B68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{427DD79F-7A6F-496C-91A0-BFABB2BD4B68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{427DD79F-7A6F-496C-91A0-BFABB2BD4B68}.Debug|x64.ActiveCfg = Debug|x64
+		{427DD79F-7A6F-496C-91A0-BFABB2BD4B68}.Debug|x64.Build.0 = Debug|x64
+		{427DD79F-7A6F-496C-91A0-BFABB2BD4B68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{427DD79F-7A6F-496C-91A0-BFABB2BD4B68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{427DD79F-7A6F-496C-91A0-BFABB2BD4B68}.Release|x64.ActiveCfg = Release|x64
+		{427DD79F-7A6F-496C-91A0-BFABB2BD4B68}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AC79C996-73C3-4284-A501-5BCEDA3A9A5C}
+	EndGlobalSection
+EndGlobal

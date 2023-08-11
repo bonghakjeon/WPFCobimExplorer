@@ -1,0 +1,71 @@
+﻿<Window x:Class="CobimExplorer.Views.Windows.TestWindowV"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CobimExplorer.Views.Windows"
+        xmlns:vm="clr-namespace:CobimExplorer.ViewModels.Windows"
+        d:DataContext="{d:DesignInstance Type=vm:TestWindowVM}"
+        mc:Ignorable="d"
+        Title="TestWindow" Height="450" Width="800">
+
+    <!-- TODO : C# WPF 팁 - Xaml 안에서 ViewModel속성을 자동완성 되도록 만들기(d:DataContext="{d:DesignInstance Type=vm:MainVM}") (2023.07.17 jbh) -->
+    <!-- 유튜브 참고 URL - https://youtu.be/A8t5ktSAgdA -->
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"    />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*"    />
+        </Grid.ColumnDefinitions>
+        <!--<Button Grid.Row="0" Grid.Column="0"
+            Content="버튼 1" />-->
+
+        <Border Grid.Row="0" Grid.Column="0" BorderBrush="Blue" BorderThickness="10">
+            <!-- TreeView 영역 -->
+            <TreeView>
+
+            </TreeView>
+        </Border>
+
+        <GridSplitter Grid.Row="0" Grid.Column="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Stretch"
+            Width="10"
+            ShowsPreview="True" />
+        <Grid Grid.Row="0" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"    />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*"    />
+            </Grid.RowDefinitions>
+            <!--<Button Grid.Row="0" Grid.Column="0"
+                Content="버튼 2" />-->
+
+            <!-- 화면 우측 상단 GridView 영역 -->
+            <Border Grid.Row="0" Grid.Column="0" BorderBrush="Red" BorderThickness="10">
+                <!-- GridView 영역 -->
+                <!-- TODO: GridView 영역 구현시 <Grid> 또는 <DataGrid> 둘 중에 하나로 구현하기 (2023.07.13 jbh) -->
+                <DataGrid>
+
+                </DataGrid>
+            </Border>
+
+            <GridSplitter Grid.Row="1" Grid.Column="0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                Height="10"
+                ShowsPreview="True" />
+            
+            <!--<Button Grid.Row="2" Grid.Column="0"
+                Content="버튼 3" />-->
+
+            <Border Grid.Row="2" Grid.Column="0" BorderBrush="Green" BorderThickness="10">
+                <!-- ListView 영역 -->
+                <ListView>
+
+                </ListView>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
