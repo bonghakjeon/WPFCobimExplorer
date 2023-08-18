@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CobimExplorer.Services.Page;
-using MaterialDesignThemes.Wpf;
+//using MaterialDesignThemes.Wpf;
 using System.Windows.Input;
 
 namespace CobimExplorer.ViewModels.Windows.Login
@@ -17,11 +17,10 @@ namespace CobimExplorer.ViewModels.Windows.Login
     {
         #region 프로퍼티 
 
-        public bool IsDarkTheme { get => _IsDarkTheme; set { _IsDarkTheme = value; NotifyOfPropertyChange(); } }
-        private bool _IsDarkTheme; 
+        //public bool IsDarkTheme { get => _IsDarkTheme; set { _IsDarkTheme = value; NotifyOfPropertyChange(); } }
+        //private bool _IsDarkTheme; 
 
-        private readonly PaletteHelper paletteHelper = new PaletteHelper();
-
+        //private readonly PaletteHelper paletteHelper = new PaletteHelper();
 
         #endregion 프로퍼티 
 
@@ -40,22 +39,22 @@ namespace CobimExplorer.ViewModels.Windows.Login
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void toggleTheme(object sender, RoutedEventArgs e)
-        {
-            ITheme theme = paletteHelper.GetTheme();
+        //private void toggleTheme(object sender, RoutedEventArgs e)
+        //{
+        //    ITheme theme = paletteHelper.GetTheme();
 
-            if (IsDarkTheme = theme.GetBaseTheme() == BaseTheme.Dark)
-            {
-                IsDarkTheme = false;
-                theme.SetBaseTheme(Theme.Light);
-            }
-            else
-            {
-                IsDarkTheme = true;
-                theme.SetBaseTheme(Theme.Dark);
-            }
-            paletteHelper.SetTheme(theme);
-        }
+        //    if (IsDarkTheme = theme.GetBaseTheme() == BaseTheme.Dark)
+        //    {
+        //        IsDarkTheme = false;
+        //        theme.SetBaseTheme(Theme.Light);
+        //    }
+        //    else
+        //    {
+        //        IsDarkTheme = true;
+        //        theme.SetBaseTheme(Theme.Dark);
+        //    }
+        //    paletteHelper.SetTheme(theme);
+        //}
 
         #endregion toggleTheme
 

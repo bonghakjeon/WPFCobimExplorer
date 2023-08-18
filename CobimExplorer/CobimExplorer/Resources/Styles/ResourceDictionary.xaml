@@ -1,0 +1,9 @@
+﻿<!-- TODO : <TextBox>, PasswordBox 영역에 추후 필요시 PlaceHolder(Watermark) 구현하기 (2023.08.17 jbh) -->
+<!-- 참고 URL - https://blissfuljoon.tistory.com/374 -->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- DefaultTextBox TextBox Styles (S) -->
+    <!--<Style>
+        
+    </Style>-->
+</ResourceDictionary>

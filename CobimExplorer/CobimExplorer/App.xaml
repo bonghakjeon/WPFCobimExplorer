@@ -4,8 +4,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:s="https://github.com/canton7/Stylet"
-             xmlns:local="clr-namespace:CobimExplorer"
-             StartupUri="Views\Windows\Login\TestLoginV.xaml">
+             xmlns:local="clr-namespace:CobimExplorer">
+    <!-- StartupUri="Views\Windows\Login\LoginV.xaml" -->
     <Application.Resources>
         <ResourceDictionary>
             <!--s:ApplicationLoader + 직접 구현한 Resources / ResourceDictionaries(YourDictionary.xaml) 애플리케이션에 같이 추가하는 경우-->
@@ -20,16 +20,17 @@
                 <!--TODO: 직접 구현한 Resources / ResourceDictionaries(YourDictionary.xaml)를 애플리케이션에 추가 방법 (2023.07.03 jbh)-->
                 <!--<ResourceDictionary Source="YourDictionary.xaml"/>-->
 
+                <!-- TODO : Material Design In XAML Toolkit 필요시 사용 예정 (2023.08.17 jbh) -->
                 <!-- 로그인 화면 (TestLoginV.xaml) Material Design In XAML Toolkit - GETTING STARTED -->
                 <!-- 참고 URL - http://materialdesigninxaml.net/ -->
-                <ResourceDictionary
+                <!--<ResourceDictionary
                         Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary
                         Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary
                         Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
                 <ResourceDictionary
-                        Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+                        Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

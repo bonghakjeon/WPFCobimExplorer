@@ -1,19 +1,21 @@
 ﻿using Stylet;
 using StyletIoC;
+using Serilog;
 using System;
 using System.Windows;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 using System.Threading.Tasks;
-using CobimExplorer.ViewModels.Pages;
+using System.Windows.Controls.Ribbon;
 using CobimExplorer.Services.Page;
 using CobimExplorer.Interface.Page;
 using CobimExplorer.Message;
-using System.Windows.Input;
 using CobimExplorer.Commands;
-using System.Windows.Controls.Ribbon;
+using CobimExplorer.ViewModels.Pages;
+using CobimExplorer.ViewModels.Windows.Login;
 
 namespace CobimExplorer.ViewModels
 {
@@ -133,7 +135,7 @@ namespace CobimExplorer.ViewModels
         #region 생성자
 
         // TODO: 생성자 MainVM 로직 보완 (2023.07.04 jbh)
-        public MainVM(IEventAggregator events, IContainer container) 
+        public MainVM(IEventAggregator events, IContainer container)
         {
             //this.InnerViewModel = new InnerViewModel();
             this.Container = container;
@@ -163,19 +165,12 @@ namespace CobimExplorer.ViewModels
         protected override void OnInitialActivate()
         {
             base.OnInitialActivate();
-            
+
+            OpenLogin();   // 로그인 화면 출력 
+
             EventAggregator.Subscribe(this);   // EventAggregator 구독 (Subscribe)
 
-            var vms = Container.GetAll<IPageBase>().ToArray();   // <IPageBase> 인터페이스를 상속 받는 모든 클래스 요소들을 컨테이너에서 가져와서(Container.GetAll)
-
-            this.Items.AddRange(vms);
-            var first = this.Items.Where(it => string.Equals(it.GetType().Name, nameof(ShellVM))).FirstOrDefault();
-            
-            if (first != null)
-            {
-                // "ShellVM" 뷰모델과 연동된 초기화면 뷰(ShellV)를 열어준다.
-                this.ActivateItem(first);
-            }
+            InitSetting(); // 화면 초기화 
         }
 
         protected override void OnActivate()
@@ -203,6 +198,57 @@ namespace CobimExplorer.ViewModels
         {
             base.OnViewLoaded();
         }
+
+        #endregion 기본 메소드      
+
+        #region OpenLogin
+
+        public void OpenLogin()
+        {
+            // TODO : 오류 발생시 로그인 생성 로직 수정 예정 (2023.08.17 jbh)
+            // this.Container.Get<LoginVM>().ToShowData();
+            //bool result = this.Container.Get<LoginVM>().ToShowData().IsLogin;
+
+            // TODO : 오류 발생 또는 로그인 실패시 종료 로직 필요시 수정 예정 (2023.08.17 jbh)
+            // if (!result) return;  // 오류 발생, 로그인 실패, 프로그램 종료(닫기 "X" 버튼) 시 종료 
+
+            //bool result = this.Container.Get<LoginVM>().ToShowData().IsExit;
+            //if (result) Application.Current.Shutdown();
+            var vm = this.Container.Get<LoginVM>().ToShowData();  // 로그인 화면 생성 및 결과 리턴
+
+            // TODO : 닫기("X") 버튼 클릭 시 프로그램 종료 로직 구현 (2023.08.18 jbh)
+            if (!vm.IsLogin && vm.IsExit) Application.Current.Shutdown();
+        }
+
+        #endregion OpenLogin
+
+        #region InitSetting
+
+        private void InitSetting()
+        {
+            try
+            {
+                var vms = Container.GetAll<IPageBase>().ToArray();   // <IPageBase> 인터페이스를 상속 받는 모든 클래스 요소들을 컨테이너에서 가져와서(Container.GetAll)
+
+                this.Items.AddRange(vms);
+                var first = this.Items.Where(it => string.Equals(it.GetType().Name, nameof(ShellVM))).FirstOrDefault();
+
+                if (first != null)
+                {
+                    // "ShellVM" 뷰모델과 연동된 초기화면 뷰(ShellV)를 열어준다.
+                    this.ActivateItem(first);
+                }
+            }
+            catch(Exception e)
+            {
+                Log.Logger.Information("오류 :" + e.Message);
+                // Application.Current.Shutdown();
+            }
+        }
+
+        #endregion InitSetting
+
+        #region Display
 
         private void Display(ChangeViewModelMsg message)
         {
@@ -260,6 +306,9 @@ namespace CobimExplorer.ViewModels
             }
         }
 
+        #endregion Display
+
+        #region Handle
 
         /// <summary>
         /// 받은 메세지로 동작한다.
@@ -291,6 +340,8 @@ namespace CobimExplorer.ViewModels
             //}
         }
 
+        #endregion Handle
+
         // TODO : 추후 필요 없을시 삭제 예정 (2023.07.13 jbh)
         //public void ChangeExplorerViewModel(string vmName)
         //{
@@ -310,7 +361,7 @@ namespace CobimExplorer.ViewModels
         //    }
         //}
 
-        #endregion 기본 메소드        
+
 
         #region TEST
 

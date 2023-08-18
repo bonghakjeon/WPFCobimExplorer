@@ -1,0 +1,134 @@
+﻿<Window x:Class="CobimExplorer.Views.Windows.Login.LoginV"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CobimExplorer.Views.Windows.Login"
+        xmlns:vm="clr-namespace:CobimExplorer.ViewModels.Windows.Login"
+        xmlns:s="https://github.com/canton7/Stylet"
+        d:DataContext="{d:DesignInstance Type=vm:LoginVM}" 
+        s:View.ActionTarget="{Binding LoginVM}"
+        mc:Ignorable="d"
+        Title="COBIM Explorer" Height="760" Width="450"
+        WindowStyle="None">
+    <Grid>
+        <Border Margin="25">
+            <StackPanel>
+                <StackPanel Width="32" HorizontalAlignment="Right">
+                    <!--<StackPanel Margin="16,10,0,6" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock VerticalAlignment="Center" Text="Dark Mode" />
+
+                        <ToggleButton Cursor="Hand" 
+                                          ToolTip="Enable Dark Mode" 
+                                          Margin="12,0,8,0"
+                                          x:Name="themeToggle"
+                                          IsChecked="{Binding IsDarkTheme}"
+                                          Click="toggleTheme" />
+                    </StackPanel>-->
+
+                    <!--<Button Margin="0,8,0,0"
+                                Content="Help Me"
+                                ToolTip="Having Trouble Logging In?" />-->
+
+                    <Button x:Name="btn_exit" 
+                            Command="{s:Action ExitApp, ActionNotFound=Disable}"
+                            HorizontalAlignment="Right">
+                         <!--TODO : <Button> 영역 <Image> 파일 ExitBtn.png 추가 (2023.08.17 jbh) 
+                         참고 URL - https://drbeeeye.tistory.com/45-->
+                        <Button.Content>
+                            <Image x:Name="ExitBtnImg" Source="/Resources/ExitBtn.png"/>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+
+                <!-- Resources 폴더 -> Logo.PNG(png) 파일 <Image>영역 Source 바인딩(등록) 방법 
+                     참고 URL - https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=baejun_k&logNo=221285690364 -->
+                <Image Margin="0,60,0,5" Source="/Resources/Logo.png" Height="70" />
+
+                <TextBlock Margin="0,25,0,5"
+                           HorizontalAlignment="Center"
+                           FontSize="28"
+                           FontWeight="Bold"
+                           Text="Welcome Back!"/>
+
+                <TextBlock FontSize="17"
+                           FontWeight="SemiBold"
+                           HorizontalAlignment="Center"
+                           Text="Log in to your existing account" />
+
+                <!-- TODO : <TextBox> 영역에 PlaceHolder(Watermark) "Enter Username" 구현하기 (2023.08.17 jbh) -->
+                <!-- 참고 URL - https://blissfuljoon.tistory.com/374 -->
+                <!-- 참고 2 URL - https://kjun.kr/1127 -->
+                <!-- TODO : <TextBox>에 적힌 텍스트 <TextBox> 영역 중앙 정렬 구현 VerticalContentAlignment="Center" (2023.08.17 jbh) -->
+                <!-- 참고 URL - https://drbeeeye.tistory.com/9 -->
+                <StackPanel Margin="0,50,0,0" Width="300">
+                    <Border BorderThickness="2" BorderBrush="Blue" Height="50">
+                        <Grid>
+                            <TextBox Name="txtUsername" Text="" Height="50" Width="300" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+
+                            <TextBlock Text="Enter Username..." Margin="5,0,0,0" FontSize="18" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                        <Setter Property="Foreground" Value="Gray"/>
+
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=txtUsername}" Value="">
+
+                                                <Setter Property="Visibility" Value="Visible"/>
+
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+                
+                <StackPanel Margin="0,20,0,0" Width="300">
+                    <Border BorderThickness="2" BorderBrush="Red" Height="50">
+                        <Grid>
+                            <TextBox Name="txtPassword" Text="" Height="50" Width="300" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+
+                            <TextBlock Text="Enter Password..." Margin="5,0,0,0" FontSize="18" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                        <Setter Property="Foreground" Value="Gray"/>
+
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=txtPassword}" Value="">
+
+                                                <Setter Property="Visibility" Value="Visible"/>
+
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+                
+
+                <Button Margin="0,20,0,0"
+                        x:Name="loginBtn"  
+                        Command="{s:Action LoginAsync, ActionNotFound=Disable}"
+                        Height="53"
+                        Width="300" 
+                        FontSize="18"
+                        Content="로그인" />
+
+                <!-- TODO : 버튼 "테스트" 필요시 구현 예정 (2023.08.17 jbh) -->
+                <Button Margin="0,20,0,0"
+                        x:Name="signupBtn"          
+                        Command="{s:Action TestAsync, ActionNotFound=Disable}"
+                        Height="53"
+                        Width="300" 
+                        FontSize="18"
+                        Content="테스트"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

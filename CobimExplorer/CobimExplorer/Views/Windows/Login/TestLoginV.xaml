@@ -13,15 +13,17 @@
         s:View.Model="{Binding TestLoginVM}"
         mc:Ignorable="d"
         Title="TestLoginV" Height="760" Width="450"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        
         Background="{x:Null}"
         AllowsTransparency="True"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
+
+    <!-- TextElement.Foreground="{DynamicResource MaterialDesignBody}" -->
     
     <!-- 로그인 화면 (TestLoginV.xaml) 뷰 구현 -->
     <!-- 유튜브 참고 URL - https://youtu.be/hu7QG8OEOuk -->
-    <materialDesign:Card Margin="25"
+    <!--<materialDesign:Card Margin="25"
                          UniformCornerRadius="15" 
                          materialDesign:ShadowAssist.ShadowDepth="Depth4"
                          Background="{DynamicResource MaterialDesignPaper}">
@@ -55,8 +57,8 @@
                     </StackPanel>
                 </materialDesign:PopupBox>
                 
-                <!-- Resources 폴더 -> Logo.PNG(png) 파일 <Image>영역 Source 바인딩(등록) 방법 
-                     참고 URL - https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=baejun_k&logNo=221285690364 -->
+                --><!-- Resources 폴더 -> Logo.PNG(png) 파일 <Image>영역 Source 바인딩(등록) 방법 
+                     참고 URL - https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=baejun_k&logNo=221285690364 --><!--
                 <Image Margin="0,60,0,5" Source="/Resources/Logo.png" Height="70" />
 
                 <TextBlock Margin="0,25,0,5"
@@ -96,7 +98,8 @@
                         Height="53"
                         Width="300" 
                         FontSize="18"
-                        Content="LOG IN"/>
+                        Content="LOG IN"
+                        Command="{s:Ac}"/>
 
                 <Button Margin="0,20,0,0"
                         x:Name="signupBtn"
@@ -110,5 +113,5 @@
                 
             </StackPanel>
         </materialDesign:DialogHost>
-    </materialDesign:Card>
+    </materialDesign:Card>-->
 </Window>
