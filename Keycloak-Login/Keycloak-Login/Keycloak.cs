@@ -11,6 +11,13 @@ using System.Net;
 using Serilog;
 using Microsoft.VisualBasic.Logging;
 
+
+// KeyCloak 오류 코드 "NETSDK1045" 해결 방법
+// 오류 메시지 - 현재 .NET SDK에서는 .NET 6.0을(를) 대상으로 하는 것을 지원하지 않습니다.
+// .NET 5.0 이하를 대상으로 하거나 .NET 6.0을(를) 지원하는.NET SDK 버전을 사용하세요.	
+// Keycloak-Login	C:\Program Files\dotnet\sdk\5.0.416\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.TargetFrameworkInference.targets	
+// 참고 URL - https://studyingpingu.tistory.com/65
+
 namespace Keycloak;
 
 
