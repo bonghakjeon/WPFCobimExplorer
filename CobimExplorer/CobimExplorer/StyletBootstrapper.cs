@@ -7,6 +7,7 @@ using StyletIoC;
 using Stylet.Logging;
 using System;
 using System.Text;
+using System.Net.Http;
 using System.Windows;
 using System.Windows.Threading;
 using System.Collections.Generic;
@@ -70,6 +71,7 @@ namespace CobimExplorer
             // 싱글톤 객체 설정 또 다른 예시 - builder.Bind<IConfigurationManager>().ToFactory(container => new ConfigurationManager()).InSingletonScope();
             builder.Bind<IWindowManager>().To<WindowManager>().InSingletonScope();
             builder.Bind<IEventAggregator>().To<EventAggregator>().InSingletonScope();
+            builder.Bind<HttpClient>().ToSelf().InSingletonScope();
             // builder.Bind<MainVM>().ToSelf().InSingletonScope();
 
             // TODO : ShellViewModel, TestViewModel 말고도 "셀프 바인딩"할 뷰모델 찾아서 아래처럼 구현하기 (2023.07.10 jbh)

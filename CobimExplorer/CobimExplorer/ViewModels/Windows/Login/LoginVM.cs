@@ -5,12 +5,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Net.Http;
 using System.Windows;
 using System.Threading.Tasks;
 using CobimExplorer.Services.Page;
 using CobimExplorer.Interface.Page;
 using CobimExplorer.Message;
 using CobimExplorer.Common.Extensions;
+using CobimExplorer.Utils.Password;
+using CobimExplorer.Rest.Api.CobimBase.User;
+// using Windows.Web.Http;
 
 namespace CobimExplorer.ViewModels.Windows.Login
 {
@@ -26,11 +31,11 @@ namespace CobimExplorer.ViewModels.Windows.Login
         /// </summary>
         public bool IsLogin
         {
-            get => this._IsLogin;
+            get => _IsLogin;
             set
             {
-                this._IsLogin = value;
-                this.NotifyOfPropertyChange(nameof(IsLogin));
+                _IsLogin = value;
+                NotifyOfPropertyChange(nameof(IsLogin));
             }
         }
         private bool _IsLogin;
@@ -40,14 +45,50 @@ namespace CobimExplorer.ViewModels.Windows.Login
         /// </summary>
         public bool IsExit
         {
-            get => this._IsExit;
+            get => _IsExit;
             set
             {
-                this._IsExit = value;
-                this.NotifyOfPropertyChange(nameof(_IsExit));
+                _IsExit = value;
+                NotifyOfPropertyChange(nameof(_IsExit));
             }
         }
         private bool _IsExit;
+
+        /// <summary>
+        /// 로그인 ID
+        /// </summary>
+        public string LoginID
+        {
+            get => this._LoginID;
+            set
+            {
+                _LoginID = value;
+                NotifyOfPropertyChange(nameof(_LoginID));
+            }
+        }
+        private string _LoginID;
+
+        /// <summary>
+        /// 비밀번호
+        /// </summary>
+        public string Password
+        {
+            get => _Password;
+            set
+            {
+                _Password = value;
+                NotifyOfPropertyChange(nameof(_Password));
+            }
+        }
+        private string _Password;
+
+        /// <summary>
+        /// HttpClient client (계속 호출하지 말고 싱글톤으로 사용해야함.)
+        /// </summary>
+        [Inject]
+        public HttpClient client { get; set; }
+
+
 
         /// <summary>
         /// 로그인 페이지
@@ -140,38 +181,85 @@ namespace CobimExplorer.ViewModels.Windows.Login
 
         public async Task LoginAsync()
         {
-            // LoginVM loginVM = this;
+            // TODO : 추후 필요시 문자열 앞뒤 공백 제거(Trim) 사용 로직으로 변경 (2023.08.22 jbh)
+            // 참고 URL - https://developer-talk.tistory.com/660
+            //string clientID = LoginID.Trim();
+            //string clientPW = Password.Trim();
+            // string clientPW = PasswordHelper.Password;
+
+            string clientID = LoginHelper.testid;
+            string clientPW = LoginHelper.testpassword;
+            // string PassWord = 
 
             try
-             {
+            {
                 MessageBox.Show("로그인 테스트 중입니다.");
-
-                // TODO: 웹서비스 "로그인" Rest API 호출시 await 추가 예정 (2023.08.17 jbh)
-
-                // 로그인 성공 
-                Log.Logger.Information("로그인 성공");
 
                 //Log.Logger.Information("웹소켓 연결 시도");
                 //Log.Logger.Information("웹소켓 연결 성공");
-                loginVM.IsLogin = true;
 
-                // TODO : 로그인 성공시 화면(Window - LoginV.xaml) 종료 구현 (2023.08.17 jbh)
-                // OnRequestClose(loginVM, new EventArgs());
-                this.RequestClose(loginVM.IsLogin);
+                //// TODO : Rest API POST 방식 사용자 로그인 static 메서드 "PostUserLogIn" 호출문 구현(2023.08.18 jbh)
+                var token = await UserRestServer.PostUserLogInAsync(client, clientID, clientPW);
+
+                if (token.resultData != null && token.resultMessage == null)
+                {
+                    // Console.WriteLine("\nLogin is OK...");
+                    // 로그인 성공 
+                    Log.Logger.Information("로그인 성공");
+
+                    MessageBox.Show("Login is OK...");
+
+                    // 로그인 성공
+                    loginVM.IsLogin = true;
+
+                    // TODO : 로그인 성공시 화면(Window - LoginV.xaml) 종료 구현 (2023.08.17 jbh)
+                    // OnRequestClose(loginVM, new EventArgs());
+                    this.RequestClose(loginVM.IsLogin);
+                }
+                else
+                {
+                    // 로그인 실패 
+                    Log.Logger.Information("로그인 실패");
+
+                    //Console.WriteLine("Login is NOT OK...");
+                    MessageBox.Show("Login is NOT OK...");
+                    // Console.WriteLine("Error = " + token.resultData);
+
+                    loginVM.IsLogin = false;
+                }
+
+                return;
             }
             catch (Exception e)
             {
                 Log.Logger.Information("로그인 실패 = " + e.Message);
                 MessageBox.Show(e.Message);
-                throw;
+                loginVM.IsLogin = false;
             }
+            finally
+            {
+                // TODO : 추후 필요시 finally문에 코드 추가 예정 (2023.08.21 jbh)
+            }
+            return;
         }
 
         #endregion LoginAsync
 
         #region TestAsync
 
-        public async Task TestAsync()
+        //public async Task TestAsync()
+        //{
+        //    try
+        //    {
+        //        MessageBox.Show("테스트");
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw;
+        //    }
+        //}
+
+        public void TestAsync()
         {
             try
             {

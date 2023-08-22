@@ -24,10 +24,16 @@ namespace CobimExplorer.Views.Windows.Login
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 마우스 드래그 이벤트
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             base.OnMouseLeftButtonDown(e);
             DragMove();
         }
+
+        
     }
 }

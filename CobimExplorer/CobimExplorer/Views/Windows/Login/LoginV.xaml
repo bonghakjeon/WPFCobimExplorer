@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:CobimExplorer.Views.Windows.Login"
         xmlns:vm="clr-namespace:CobimExplorer.ViewModels.Windows.Login"
         xmlns:s="https://github.com/canton7/Stylet"
+        xmlns:w="clr-namespace:CobimExplorer.Utils.Password"
         d:DataContext="{d:DesignInstance Type=vm:LoginVM}" 
         s:View.ActionTarget="{Binding LoginVM}"
         mc:Ignorable="d"
@@ -33,7 +34,7 @@
                     <Button x:Name="btn_exit" 
                             Command="{s:Action ExitApp, ActionNotFound=Disable}"
                             HorizontalAlignment="Right">
-                         <!--TODO : <Button> 영역 <Image> 파일 ExitBtn.png 추가 (2023.08.17 jbh) 
+                        <!--TODO : <Button> 영역 <Image> 파일 ExitBtn.png 추가 (2023.08.17 jbh) 
                          참고 URL - https://drbeeeye.tistory.com/45-->
                         <Button.Content>
                             <Image x:Name="ExitBtnImg" Source="/Resources/ExitBtn.png"/>
@@ -43,13 +44,13 @@
 
                 <!-- Resources 폴더 -> Logo.PNG(png) 파일 <Image>영역 Source 바인딩(등록) 방법 
                      참고 URL - https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=baejun_k&logNo=221285690364 -->
-                <Image Margin="0,60,0,5" Source="/Resources/Logo.png" Height="70" />
+                <Image Margin="0,60,0,5" Source="/Resources/CobimLogo.png" Height="70" />
 
                 <TextBlock Margin="0,25,0,5"
                            HorizontalAlignment="Center"
                            FontSize="28"
                            FontWeight="Bold"
-                           Text="Welcome Back!"/>
+                           Text="Welcome to cobim!"/>
 
                 <TextBlock FontSize="17"
                            FontWeight="SemiBold"
@@ -64,9 +65,18 @@
                 <StackPanel Margin="0,50,0,0" Width="300">
                     <Border BorderThickness="2" BorderBrush="Blue" Height="50">
                         <Grid>
-                            <TextBox Name="txtUsername" Text="" Height="50" Width="300" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                            <!-- TODO : <TextBox> 영역 UpdateSourceTrigger 추가 (2023.08.21 jbh) -->
+                            <!-- 참고 URL - https://afsdzvcx123.tistory.com/entry/C-WPF-WPF-MVVM-%ED%8C%A8%ED%84%B4-%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC-TextBox-%EC%BB%A8%ED%8A%B8%EB%A1%A4-%EB%AC%B8%EC%9E%90-%EC%9E%85%EB%A0%A5-%EA%B0%90%EC%A7%80%ED%95%98%EA%B8%B0 -->
+                            <TextBox Name="txtUsername" 
+                                     Text="{Binding LoginID, UpdateSourceTrigger=PropertyChanged}" 
+                                     Height="50" 
+                                     Width="300" 
+                                     FontSize="18" 
+                                     HorizontalAlignment="Left" 
+                                     VerticalAlignment="Center" 
+                                     VerticalContentAlignment="Center"/>
 
-                            <TextBlock Text="Enter Username..." Margin="5,0,0,0" FontSize="18" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Left">
+                            <TextBlock Text="Enter Test Username (dvl001)..." Margin="5,0,0,0" FontSize="18" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Left">
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="Visibility" Value="Hidden"/>
@@ -85,32 +95,91 @@
                         </Grid>
                     </Border>
                 </StackPanel>
-                
+
                 <StackPanel Margin="0,20,0,0" Width="300">
                     <Border BorderThickness="2" BorderBrush="Red" Height="50">
                         <Grid>
-                            <TextBox Name="txtPassword" Text="" Height="50" Width="300" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-
-                            <TextBlock Text="Enter Password..." Margin="5,0,0,0" FontSize="18" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Left">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
+                            <!-- TODO : PasswordBox PlaceHolder 텍스트 (회색 반투명 글자) 추가 (2023.08.22 jbh) -->
+                            <!-- 참고 URL - https://icodebroker.tistory.com/entry/CUWP-PasswordBox-%EC%97%98%EB%A6%AC%EB%A8%BC%ED%8A%B8-PlaceholderTextPasswordChar-%EC%86%8D%EC%84%B1-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0 -->
+                            <PasswordBox Name="txtPassword" 
+                                         Password=""
+                                         PasswordChar="*"
+                                         Height="50" 
+                                         Width="300" 
+                                         FontSize="18" 
+                                         HorizontalAlignment="Left" 
+                                         VerticalAlignment="Center" 
+                                         VerticalContentAlignment="Center">
+                                <PasswordBox.Style>
+                                    <Style TargetType="PasswordBox">
                                         <Setter Property="Visibility" Value="Hidden"/>
                                         <Setter Property="Foreground" Value="Gray"/>
 
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Text, ElementName=txtPassword}" Value="">
+                                            <DataTrigger Binding="{Binding Password, ElementName=txtPassword}" Value="">
 
                                                 <Setter Property="Visibility" Value="Visible"/>
+
+
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </PasswordBox.Style>
+                            </PasswordBox>
+
+                            <!--<TextBlock Text="Enter Test Password (qwer1234!)..." Margin="5,0,0,0" FontSize="18" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <TextBlock.Style>
+                                    <Style TargetType="PasswordBox">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                        <Setter Property="Foreground" Value="Gray"/>
+
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Password, ElementName=txtPassword}" Value="">
+
+                                                <Setter Property="Visibility" Value="Visible"/>
+
 
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </TextBlock.Style>
-                            </TextBlock>
+                            </TextBlock>--> 
+
+
+                            <!-- TODO : <TextBox> 영역 UpdateSourceTrigger 추가 (2023.08.21 jbh) -->
+                            <!-- 참고 URL - https://afsdzvcx123.tistory.com/entry/C-WPF-WPF-MVVM-%ED%8C%A8%ED%84%B4-%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC-TextBox-%EC%BB%A8%ED%8A%B8%EB%A1%A4-%EB%AC%B8%EC%9E%90-%EC%9E%85%EB%A0%A5-%EA%B0%90%EC%A7%80%ED%95%98%EA%B8%B0 -->
+                            <!--<TextBox Name="txtPassword" 
+                                     Text="{Binding PassWord, UpdateSourceTrigger=PropertyChanged}" 
+                                     Height="50" 
+                                     
+                                     Width="300" 
+                                     FontSize="18" 
+                                     HorizontalAlignment="Left" 
+                                     VerticalAlignment="Center" 
+                                     VerticalContentAlignment="Center"/>
+
+                            <TextBlock Text="Enter Test Password (qwer1234!)..." Margin="5,0,0,0" FontSize="18" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Hidden"/>
+                                            <Setter Property="Foreground" Value="Gray"/>
+
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Text, ElementName=txtPassword}" Value="">
+
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                    
+
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>-->
+                            
                         </Grid>
                     </Border>
                 </StackPanel>
-                
+
 
                 <Button Margin="0,20,0,0"
                         x:Name="loginBtn"  

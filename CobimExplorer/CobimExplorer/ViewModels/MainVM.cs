@@ -239,7 +239,7 @@ namespace CobimExplorer.ViewModels
                     this.ActivateItem(first);
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Log.Logger.Information("오류 :" + e.Message);
                 // Application.Current.Shutdown();
@@ -252,7 +252,7 @@ namespace CobimExplorer.ViewModels
 
         private void Display(ChangeViewModelMsg message)
         {
-            switch(message.VMName)
+            switch (message.VMName)
             {
                 case ShellVMName:
                     // TODO: this.ShellVM 객체 생성 안 하고도 ShellVM.cs 에서 이벤트 메서드(ShowMessageBox, DoSomething)가 실행 되도록 로직 수정하기(2023.07.07 jbh)
@@ -316,8 +316,10 @@ namespace CobimExplorer.ViewModels
         /// <param name="message"></param>
         public void Handle(ChangeViewModelMsg message)
         {
-            foreach (var item in message.Items) {
-                if (item.GetType().Name.Equals(message.VMName) && message?.VMName != null) {
+            foreach (var item in message.Items)
+            {
+                if (item.GetType().Name.Equals(message.VMName) && message?.VMName != null)
+                {
                     // TODO : 아래 테스트 코드 추후 삭제 예정 (2023.07.26 jbh)
                     // var changeVM = message.Items.Where(it => string.Equals(it.GetType().Name, message.VMName)).FirstOrDefault();
                     // this.ActivateItem(changeVM);
@@ -336,7 +338,7 @@ namespace CobimExplorer.ViewModels
 
             //        Display(change);
             //    }
-                
+
             //}
         }
 
