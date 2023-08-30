@@ -39,13 +39,7 @@
     <Grid>
         <DockPanel>
             <Border DockPanel.Dock="Top">
-                <DockPanel>
-                    <StackPanel>
-                        <StackPanel>
-                            <c:RibbonControl/>
-                        </StackPanel>
-                    </StackPanel>
-                </DockPanel>
+                <c:RibbonControl/>
             </Border>
             <Border DockPanel.Dock="Bottom">
                 <Grid>

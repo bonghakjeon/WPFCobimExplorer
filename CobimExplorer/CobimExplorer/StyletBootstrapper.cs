@@ -15,6 +15,9 @@ using CobimExplorer.ViewModels;
 using CobimExplorer.ViewModels.Pages;
 using CobimExplorer.Interface.Page;
 using CobimExplorer.Common.LogManager;
+using CobimExplorer.Rest.Api.CobimBase.User;
+using CobimExplorer.ViewModels.Windows.Login;
+using CobimExplorer.Models.User;
 
 namespace CobimExplorer
 {
@@ -72,6 +75,10 @@ namespace CobimExplorer
             builder.Bind<IWindowManager>().To<WindowManager>().InSingletonScope();
             builder.Bind<IEventAggregator>().To<EventAggregator>().InSingletonScope();
             builder.Bind<HttpClient>().ToSelf().InSingletonScope();
+            // builder.Bind<LoginVM>().ToSelf().InSingletonScope();
+            //builder.Bind<LoginHelper.LoginPack>().ToSelf().InSingletonScope();
+            //builder.Bind<LoginHelper.Login_Access_Token>().ToSelf().InSingletonScope();
+            //builder.Bind<UserInfoView>().ToSelf().InSingletonScope();
             // builder.Bind<MainVM>().ToSelf().InSingletonScope();
 
             // TODO : ShellViewModel, TestViewModel 말고도 "셀프 바인딩"할 뷰모델 찾아서 아래처럼 구현하기 (2023.07.10 jbh)

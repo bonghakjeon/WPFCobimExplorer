@@ -72,8 +72,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CobimBase\Explorer\ExplorerRestServer.cs" />
+    <Compile Include="CobimBase\Explorer\ProjectHelper.cs" />
     <Compile Include="CobimBase\User\LoginHelper.cs" />
-    <Compile Include="CobimBase\User\LoginPack.cs" />
     <Compile Include="CobimBase\User\UserRestServer.cs" />
     <Compile Include="NetWork\Http\httpManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,5 +83,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

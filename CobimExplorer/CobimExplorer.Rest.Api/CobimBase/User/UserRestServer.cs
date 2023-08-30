@@ -9,7 +9,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using CobimExplorer.Rest.Api.NetWork.Http;
-using static CobimExplorer.Rest.Api.CobimBase.User.LoginHelper;
 
 namespace CobimExplorer.Rest.Api.CobimBase.User
 {
@@ -35,21 +34,23 @@ namespace CobimExplorer.Rest.Api.CobimBase.User
         /// 사용자 로그인 (POST)
         /// Rest API 메서드 파라미터 "HttpClient client, string PassWord, string inputTenantId"
         /// </summary>
-        public static async Task<Login_Access_Token> PostUserLogInAsync(HttpClient client, string LoginID, string PassWord)
+        public static async Task<LoginHelper.Login_Access_Token> PostUserLoginAsync(HttpClient client, LoginHelper.LoginPack loginPack)
         {
             try
             {
-                LoginPack logInPack = new LoginPack
-                {
-                    id = LoginID,
-                    password = PassWord,
-                    inputTenantId = LoginHelper.inputTenantId,
-                };
+                // TODO : Http 통신 Post 방식 작업 시 서버로 부터 결과값 리턴되지 않고 시간이 길어지면 Time Out 처리 되면서 오류 메시지 출력 기능 구현 예정 (2023.08.30 jbh)
 
-                // TODO : LogInPack 클래스 객체 "logInPack" string 클래스 json 문자열(content) 구현 (2023.08.21 jbh)
+                //LoginHelper.LoginPack LoginPack = new LoginHelper.LoginPack
+                //{
+                //    id = LoginID,
+                //    password = Password,
+                //    inputTenantId = LoginHelper.inputTenantId,
+                //};
+
+                // TODO : LoginPack 클래스 객체 "LoginPack" string 클래스 json 문자열(content) 구현 (2023.08.21 jbh)
                 // 참고 URL - https://learn.microsoft.com/ko-kr/dotnet/standard/serialization/system-text-json/how-to?pivots=dotnet-8-0
                 // json 문자열(하드코딩) 생성 코드 예시 -> (예) string content = "{\"id\":\"dvl001\",\"password\":\"qwer1234!\",\"inputTenantId\":\"inc-001\"}";
-                string content = JsonSerializer.Serialize(logInPack);
+                string content = JsonSerializer.Serialize(loginPack);
 
                 var jsonContent = new StringContent(
                                         content,
@@ -61,18 +62,19 @@ namespace CobimExplorer.Rest.Api.CobimBase.User
 
                 string json = await response.Content.ReadAsStringAsync();
 
-                Login_Access_Token token = JsonSerializer.Deserialize<Login_Access_Token>(json);
+                LoginHelper.Login_Access_Token token = JsonSerializer.Deserialize<LoginHelper.Login_Access_Token>(json);
 
                 return token;
             }
             catch (Exception e)
             {
+                // TODO : Http 통신 Post 방식 작업 시 서버로 부터 결과값 리턴되지 않고 시간이 길어지면 Time Out 처리 되면서 오류 메시지 출력 기능 구현 예정 (2023.08.30 jbh)
                 Log.Logger.Information(e.Message);
                 throw;
             }
 
         }
-        //public static async Task<Login_Access_Token> PostUserLogInAsync(string LoginID, string PassWord)
+        //public static async Task<Login_Access_Token> PostUserLoginAsync(string LoginID, string PassWord)
         //{
         //    try
         //    {
@@ -87,7 +89,7 @@ namespace CobimExplorer.Rest.Api.CobimBase.User
         //        //    {"inputTenantId", "inc-001"}
         //        //};
 
-        //        LogInPack logInPack = new LogInPack {
+        //        LoginPack LoginPack = new LoginPack {
         //            id = LoginID,
         //            password = PassWord,
         //            inputTenantId = "inc-001",
@@ -95,7 +97,7 @@ namespace CobimExplorer.Rest.Api.CobimBase.User
         //        };
 
 
-        //        Login_Access_Token token = await httpManager.PostLoginConnect(client, logInPack);
+        //        Login_Access_Token token = await httpManager.PostLoginConnect(client, LoginPack);
         //        Console.WriteLine("Access Token = " + token.resultData);
 
         //        //if (token.resultMessage == null)
@@ -137,8 +139,8 @@ namespace CobimExplorer.Rest.Api.CobimBase.User
         //        //    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull // null values 무시 설정 
         //        //};
 
-        //        //var loginUser = JsonSerializer.Deserialize<LoginPack>(JsonString, options);
-        //        //string JsonloginUser = JsonSerializer.Serialize(loginUser);
+        //        //var LoginUser = JsonSerializer.Deserialize<LoginPack>(JsonString, options);
+        //        //string JsonLoginUser = JsonSerializer.Serialize(LoginUser);
         //    }
         //    catch (Exception e)
         //    {

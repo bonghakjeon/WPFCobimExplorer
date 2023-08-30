@@ -6,29 +6,34 @@ using System.Threading.Tasks;
 
 namespace CobimExplorer.Rest.Api.CobimBase.User
 {
-    public static class LoginHelper
+    public class LoginHelper
     {
         /// <summary>
+        /// 1. 로그인
         /// 요청 파라미터 - 테스트 아이디
         /// </summary>
-        public const string testid = "dvl001";
+        public const string testId = "dvl001";
 
         /// <summary>
+        /// 1. 로그인
         /// 요청 파라미터 - 테스트 비밀번호 
         /// </summary>
-        public const string testpassword = "qwer1234!";
+        public const string testPassword = "qwer1234!";
 
         /// <summary>
+        /// 1. 로그인
         /// 요청 파라미터 - inputTenantId
         /// </summary>
         public const string inputTenantId = "inc-001";
 
         /// <summary>
+        /// 1. 로그인
         /// 요청 URL - auth_server_url
         /// </summary>
         public const string auth_server_url = "http://bim.211.43.204.141.nip.io:31380/api/account/user/signin";
 
         /// <summary>
+        /// 1. 로그인
         /// 요청 Header - Content-Type	
         /// </summary>
         public const string contentType = "application/json";
@@ -57,7 +62,7 @@ namespace CobimExplorer.Rest.Api.CobimBase.User
             /// <summary>
             /// 요청 URL - auth_server_url
             /// </summary>
-            public string auth_server_url { get; set; }
+            // public string auth_server_url { get; set; }
         }
 
         /// <summary>

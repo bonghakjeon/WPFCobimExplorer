@@ -8,38 +8,195 @@
              xmlns:vm="clr-namespace:CobimExplorer.ViewModels.Pages"
              xmlns:t="clr-namespace:CobimExplorer.Test"
              xmlns:s="https://github.com/canton7/Stylet"
-             s:View.ActionTarget="{Binding ExplorerVM}"
              mc:Ignorable="d" 
-             d:DataContext="{d:DesignInstance vm:ExplorerVM}"
              d:DesignHeight="450" d:DesignWidth="800">
+    <!-- s:View.ActionTarget="{Binding ExplorerVM}" -->
+    <!-- d:DataContext="{d:DesignInstance vm:ExplorerVM}" -->
+
+    <UserControl.DataContext>
+        <Binding Path="ExplorerVM" />
+    </UserControl.DataContext>
+
+    <UserControl.CommandBindings>
+        
+    </UserControl.CommandBindings>
+
     <Grid>
-        <Border Background="White" Height="50" DockPanel.Dock="Top">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Command="{s:Action DownlLoad}" Margin="0,0,10,0">다운로드</Button>
-                <Button Command="{s:Action CheckOut}" Margin="0,0,10,0">체크아웃</Button>
-                <Button Command="{s:Action CheckIn}">체크인</Button>
-            </StackPanel>
-        </Border>
+        <DockPanel>
+            <!-- 화면 상단 Border 영역 -->
+            <Border Background="White" Height="50" DockPanel.Dock="Top" BorderBrush="Blue" BorderThickness="5">
+                <StackPanel Height="40" Orientation="Horizontal">
+                    <TextBlock Text="COBIM 전용 탐색기" Margin="10,0,10,0" VerticalAlignment="Center" FontSize="20"/>
+                    <!-- Command="{s:Action DownlLoadAsync, ActionNotFound=Disable}" -->
+                    <Button Command="{Binding DownlLoadCommand}" Margin="0,0,10,0" Width="100">다운로드</Button>
+                    <!-- Command="{s:Action CheckOutAsync, ActionNotFound=Disable}" -->
+                    <Button Command="{Binding CheckOutCommand}" Margin="0,0,10,0" Width="100">체크아웃</Button>
+                    <!-- Command="{s:Action CheckInAsync, ActionNotFound=Disable}" -->
+                    <Button Command="{Binding CheckInCommand}" Width="100">체크인</Button>
+                </StackPanel>
+            </Border>
 
-        <Grid >
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Command="{s:Action DownlLoad}" Margin="0,0,10,0">다운로드</Button>
-                <Button Command="{s:Action CheckOut}" Margin="0,0,10,0">체크아웃</Button>
-                <Button Command="{s:Action CheckIn}">체크인</Button>
-            </StackPanel>
-        </Grid>
+            <Border DockPanel.Dock="Bottom">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <!-- TODO : <ColumnDefinition>영역에서 Width 가중치 (1 대 1 비율) 구현 (2023.08.24 jbh) -->
+                        <!-- 참고 URL - https://benstagram.tistory.com/33 -->
+                        <!-- Width 가중치 1 -->
+                        <ColumnDefinition Width="*"    />
 
-        <!--<Grid.ColumnDefinitions>
-            --><!-- TODO : <ColumnDefinition>영역에서 Width 가중치 (1 대 2 비율) 구현 (2023.07.14 jbh) -->
-            <!-- 참고 URL - https://benstagram.tistory.com/33 --><!--
-            <ColumnDefinition Width="*"    />
-            --><!-- Width 가중치 1 --><!--
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="2*"   />
-            --><!-- Width 가중치 2 --><!--
-        </Grid.ColumnDefinitions>-->
+                        <ColumnDefinition Width="Auto" />
+
+                        <!-- Width 가중치 1 -->
+                        <ColumnDefinition Width="2*"   />
+
+                        <!-- 참고 : Width 가중치 2 설정 방법 -->
+                        <!-- <ColumnDefinition Width="2*" /> -->
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <!-- TODO : <RowDefinition>영역에서 Height 가중치 (1 대 2 비율) 구현 (2023.08.24 jbh) -->
+                            <!-- 참고 URL - https://benstagram.tistory.com/33 -->
+                            <!-- Height 가중치 1 -->
+                            <!--<RowDefinition Height="*" />
+
+                            <RowDefinition Height="Auto" />-->
+                            <!-- Height 가중치 2   -->
+                            <!--<RowDefinition Height="2*" />-->
+
+                        </Grid.RowDefinitions>
+
+                        <!--<Border Grid.Row="0" Grid.Column="0" BorderBrush="Red" BorderThickness="10">
+                            --><!-- TODO : 테스트 코드 <ListBox> 영역 구현 (2023.08.24 jbh) -->
+                            <!-- 참고 URL - https://kaki104.tistory.com/804 --><!--
+                            <ListBox ItemsSource="{Binding ProjectTypeCollection}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock Text="{Binding ProjectName}"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
 
 
+                            --><!-- TODO : 테스트 코드 <ListView> 영역 ItemsSource Collection 바인딩 구현 (2023.08.24 jbh) -->
+                            <!-- 참고 URL - https://stackoverflow.com/questions/5896198/c-sharp-wpf-listview-binding-not-working -->
+                            <!--<ListView ItemsSource="{Binding ProjectTypeCollection}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="ProjectName" DisplayMemberBinding="{Binding ProjectName}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>--><!--
+                        </Border>-->
+                        
+                        <Border BorderBrush="Red" BorderThickness="10">
+                            <!-- TODO : 테스트 코드 <ListBox> 영역 구현 (2023.08.24 jbh) -->
+                            <!-- 참고 URL - https://kaki104.tistory.com/804 -->
+                            <!--<ListBox ItemsSource="{Binding ProjectTypeCollection}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock Text="{Binding ProjectName}"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>-->
+                            <!--<ListBox ItemsSource="{Binding ProjectList}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock Text="{Binding Key}"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>-->
+                            <!-- 화면 좌측 상단 TreeView 영역 -->
+                            <TreeView ItemsSource="{Binding ProjectList}">
+                                <TreeView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock Text="{Binding XPath=projectName}"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </TreeView.ItemTemplate>
+                            </TreeView>
+
+                            <!-- TODO : 테스트 코드 <ListView> 영역 ItemsSource Collection 바인딩 구현 (2023.08.24 jbh) -->
+                            <!-- 참고 URL - https://stackoverflow.com/questions/5896198/c-sharp-wpf-listview-binding-not-working -->
+                            <!--<ListView ItemsSource="{Binding ProjectTypeCollection}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="ProjectName" DisplayMemberBinding="{Binding ProjectName}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>-->
+                        </Border>
+
+                        <!-- <GridSplitter> 사용해서 그리드 가로 분할 -->
+                        <!--<GridSplitter Grid.Row="1" Grid.Column="0"
+                                      HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Center"
+                                      Height="10"
+                                      ShowsPreview="True" />
+
+                        <Border Grid.Row="2" Grid.Column="0" BorderBrush="Gold" BorderThickness="10"/>-->
+
+                    </Grid>
+
+
+
+                    <!--<Border Grid.Row="0" Grid.Column="0" BorderBrush="Green" BorderThickness="10"/>
+
+                    -->
+                    <!-- <GridSplitter> 사용해서 그리드 가로 분할 -->
+                    <!--
+                    <GridSplitter Grid.Row="1" Grid.Column="0"
+                                      HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Center"
+                                      Height="10"
+                                      ShowsPreview="True" />
+
+                    <Border Grid.Row="1" Grid.Column="0" BorderBrush="Chocolate" BorderThickness="10"/>-->
+
+                    <!-- <GridSplitter> 사용해서 그리드 세로 분할 -->
+                    <GridSplitter Grid.Row="0" Grid.Column="1"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Stretch"
+                                  Width="10"
+                                  ShowsPreview="True" />
+
+                    <Grid Grid.Row="0" Grid.Column="2">
+
+
+                        <Grid.RowDefinitions>
+                            <!-- TODO : <RowDefinition>영역에서 Height 가중치 (1.5 대 1 비율) 구현 (2023.08.24 jbh) -->
+                            <!-- 참고 URL - https://benstagram.tistory.com/33 -->
+                            <!-- Height 가중치 1.5 -->
+                            <RowDefinition Height="1.5*" />
+
+                            <RowDefinition Height="Auto" />
+
+                            <!-- Height 가중치 1   -->
+                            <RowDefinition Height="*"    />
+
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0" Grid.Column="0" BorderBrush="Green" BorderThickness="10"/>
+
+                        <!-- <GridSplitter> 사용해서 그리드 가로 분할 -->
+                        <GridSplitter Grid.Row="1" Grid.Column="0"
+                                      HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Center"
+                                      Height="10"
+                                      ShowsPreview="True" />
+
+                        <Border Grid.Row="2" Grid.Column="0" BorderBrush="Chocolate" BorderThickness="10"/>
+                    </Grid>
+                </Grid>
+            </Border>
+        </DockPanel>
     </Grid>
     <!-- TODO : C# WPF 팁 - Xaml 안에서 ViewModel속성을 자동완성 되도록 만들기(d:DataContext="{d:DesignInstance Type=vm:MainVM}") (2023.07.17 jbh) -->
     <!-- 유튜브 참고 URL - https://youtu.be/A8t5ktSAgdA -->

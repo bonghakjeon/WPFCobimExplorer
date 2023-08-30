@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using CobimExplorer.Rest.Api.CobimBase.User;
 using Serilog;
-using static CobimExplorer.Rest.Api.CobimBase.User.LoginHelper;
+// using CobimExplorer.Rest.Api.CobimBase.User.LoginHelper;
+//using static CobimExplorer.Rest.Api.CobimBase.User.LoginHelper;
+//using static CobimExplorer.Rest.Api.CobimBase.User.LoginHelper;
 
 namespace CobimExplorer.Rest.Api.NetWork.Http
 {
@@ -21,22 +23,22 @@ namespace CobimExplorer.Rest.Api.NetWork.Http
         /// Rest API 메서드 파라미터 "string UserID, string PassWord, string inputTenantId"
         /// </summary>
         /// <param name="client">HttpClient</param>
-        /// <param name="logInPack">로그인 정보</param>
+        /// <param name="LoginPack">로그인 정보</param>
         /// <returns>Result 값</returns>
-        public static async Task<Login_Access_Token> PostLoginConnect(HttpClient client, LoginHelper.LoginPack logInPack)
+        public static async Task<LoginHelper.Login_Access_Token> PostLoginConnect(HttpClient client, LoginHelper.LoginPack LoginPack)
         {
             try
             {
                 var grant = new List<KeyValuePair<string, string>>();
-                grant.Add(new KeyValuePair<string, string>("id", logInPack.id));
-                grant.Add(new KeyValuePair<string, string>("password", logInPack.password));
-                grant.Add(new KeyValuePair<string, string>("inputTenantId", logInPack.inputTenantId));
+                grant.Add(new KeyValuePair<string, string>("id", LoginPack.id));
+                grant.Add(new KeyValuePair<string, string>("password", LoginPack.password));
+                grant.Add(new KeyValuePair<string, string>("inputTenantId", LoginPack.inputTenantId));
 
-                HttpRequestMessage req = new HttpRequestMessage(HttpMethod.Post, logInPack.auth_server_url);
+                HttpRequestMessage req = new HttpRequestMessage(HttpMethod.Post, LoginHelper.auth_server_url);
                 req.Content = new FormUrlEncodedContent(grant);
-                //req.Content.("id", logInPack.id);
-                //req.Content.TryAddWithoutValidation("password", logInPack.password);
-                //req.Content.TryAddWithoutValidation("inputTenantId", logInPack.inputTenantId);
+                //req.Content.("id", LoginPack.id);
+                //req.Content.TryAddWithoutValidation("password", LoginPack.password);
+                //req.Content.TryAddWithoutValidation("inputTenantId", LoginPack.inputTenantId);
                 req.Headers.TryAddWithoutValidation("Content-Type", "application/json; charset=utf-8");
 
                 // C# HttpClient Header "ContentType" 설정 방법 
@@ -46,7 +48,7 @@ namespace CobimExplorer.Rest.Api.NetWork.Http
                 // req.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 HttpResponseMessage response = await Connect(client, req);
                 string json = response.Content.ReadAsStringAsync().Result;
-                Login_Access_Token token = JsonSerializer.Deserialize<Login_Access_Token>(json);
+                LoginHelper.Login_Access_Token token = JsonSerializer.Deserialize<LoginHelper.Login_Access_Token>(json);
 
                 return token;
             }

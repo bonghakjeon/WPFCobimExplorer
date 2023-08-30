@@ -46,7 +46,6 @@ namespace CobimExplorer.ViewModels
         /// </summary>
         public const string TestLazyTrVMName = "TestLazyTreeVM";
 
-
         /// <summary>
         /// ExplorerVM
         /// </summary>

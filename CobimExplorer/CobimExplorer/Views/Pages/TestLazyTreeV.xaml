@@ -41,11 +41,12 @@
             <Grid.ColumnDefinitions>
                 <!-- TODO : <ColumnDefinition>영역에서 Width 가중치 (1 대 2 비율) 구현 (2023.07.14 jbh) -->
                 <!-- 참고 URL - https://benstagram.tistory.com/33 -->
-                <ColumnDefinition Width="*"    />
                 <!-- Width 가중치 1 -->
+                <ColumnDefinition Width="*"    />
+                
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="2*"   />
                 <!-- Width 가중치 2 -->
+                <ColumnDefinition Width="2*"   />
             </Grid.ColumnDefinitions>
 
             <!-- Border 속성 "BorderBrush", "BorderThickness" 사용법 
@@ -74,10 +75,10 @@
                         </Style>
                     </TreeView.Resources>
 
-                    <!--TreeView에 계층 추가-->
+                    <!-- TreeView에 계층 추가 -->
                     <TreeView.ItemTemplate>
-                        <!--DataType(models:LazyTreeNode) 지정 및 ItemsSource에 Children 바인딩 
-                 TreeView에 추가될 하위 노드로는 DataType은 "models:LazyTreeNode" ItemsSource로는 Children Collection 이다.-->
+                        <!-- DataType(models:LazyTreeNode) 지정 및 ItemsSource에 Children 바인딩 -->
+                        <!-- TreeView에 추가될 하위 노드로는 DataType은 "models:LazyTreeNode" ItemsSource로는 Children Collection 이다. -->
                         <HierarchicalDataTemplate DataType="{x:Type models:LazyTreeNode}" ItemsSource="{Binding Children}">
                             <StackPanel Orientation="Horizontal">
                                 <!--드라이브, 디렉토리, 파일 비트맵 이미지 추가 (Opened, Closed)-->
@@ -106,20 +107,22 @@
 
             <!-- <GridSplitter> 사용해서 그리드 세로 분할 -->
             <GridSplitter Grid.Row="0" Grid.Column="1"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Stretch"
-            Width="10"
-            ShowsPreview="True" />
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Stretch"
+                          Width="10"
+                          ShowsPreview="True" />
 
             <Grid Grid.Row="0" Grid.Column="2">
                 <Grid.RowDefinitions>
                     <!-- TODO : <RowDefinition>영역에서 Height 가중치 (1.5 대 1 비율) 구현 (2023.07.14 jbh) -->
                     <!-- 참고 URL - https://benstagram.tistory.com/33 -->
-                    <RowDefinition Height="1.5*" />
                     <!-- Height 가중치 1.5 -->
+                    <RowDefinition Height="1.5*" />
+                    
                     <RowDefinition Height="Auto" />
+                    
+                    <!-- Height 가중치 1 -->
                     <RowDefinition Height="*"    />
-                    <!-- Height 가중치 1   -->
                 </Grid.RowDefinitions>
 
                 <!-- 화면 우측 상단 GridView 영역 -->
@@ -134,10 +137,10 @@
 
                 <!-- <GridSplitter> 사용해서 그리드 가로 분할 -->
                 <GridSplitter Grid.Row="1" Grid.Column="0"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Center"
-                Height="10"
-                ShowsPreview="True" />
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Center"
+                              Height="10"
+                              ShowsPreview="True" />
 
                 <!-- 화면 우측 하단 ListView 영역 -->
                 <Border Grid.Row="2" Grid.Column="0" BorderBrush="Green" BorderThickness="10">

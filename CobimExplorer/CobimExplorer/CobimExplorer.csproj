@@ -60,6 +60,9 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CobimExplorer.Rest.Api">
+      <HintPath>..\CobimExplorer.Rest.Api\bin\Debug\CobimExplorer.Rest.Api.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AppCenter, Version=0.0.0.0, Culture=neutral, PublicKeyToken=8a600e2fee7ba272, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AppCenter.5.0.2\lib\net472\Microsoft.AppCenter.dll</HintPath>
     </Reference>
@@ -127,6 +130,7 @@
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Controls.Ribbon" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -148,7 +152,7 @@
     </ApplicationDefinition>
     <Compile Include="Behaviors\ButtonClickBehavior.cs" />
     <Compile Include="Commands\Command.cs" />
-    <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Commands\ButtonCommand.cs" />
     <Compile Include="Commands\RibbonCommand.cs" />
     <Compile Include="Common\BindingProxy\BindingProxy.cs" />
     <Compile Include="Common\Extensions\VMNameExtensions.cs" />
@@ -160,13 +164,20 @@
     <Compile Include="Message\ChangeViewModelMsg.cs" />
     <Compile Include="Models\Explorer\ExplorerView.cs" />
     <Compile Include="Models\Explorer\LazyTreeNode.cs" />
+    <Compile Include="Models\Explorer\ProjectTypeView.cs" />
+    <Compile Include="Models\User\UserInfoView.cs" />
+    <Compile Include="Services\Messenger\Messenger.cs" />
     <Compile Include="Services\Page\PageBase.cs" />
+    <Compile Include="Settings\AppSetting.cs" />
+    <Compile Include="Settings\LoginSetting.cs" />
+    <Compile Include="Settings\SettingPartBase.cs" />
     <Compile Include="TestStatic\CommonButtonTarget.cs" />
     <Compile Include="Test\Folder.cs" />
     <Compile Include="Utils\DirectoryUtils.cs" />
     <Compile Include="Utils\Password\PasswordBoxHelper.cs" />
     <Compile Include="Utils\Text\TextBoxHelper.cs" />
     <Compile Include="Utils\ToggleImageUtils.cs" />
+    <Compile Include="Utils\TreeDepth\CreateDepthHelper.cs" />
     <Compile Include="ViewModels\Box\CommonMsgBoxVM.cs" />
     <Compile Include="ViewModels\Pages\ExplorerVM.cs" />
     <Compile Include="ViewModels\Pages\TestExplorerVM.cs" />
@@ -204,9 +215,6 @@
     </Compile>
     <Compile Include="Views\Windows\Login\LoginV.xaml.cs">
       <DependentUpon>LoginV.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Windows\TestPassWordBox.xaml.cs">
-      <DependentUpon>TestPassWordBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Windows\TestWindowV.xaml.cs">
       <DependentUpon>TestWindowV.xaml</DependentUpon>
@@ -281,10 +289,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Windows\TestPassWordBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Windows\TestWindowV.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -304,13 +308,16 @@
     <Resource Include="Resources\Logo.PNG" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CobimExplorer.Rest.Api\CobimExplorer.Rest.Api.csproj">
-      <Project>{7F08FDE7-805E-43E8-A5AD-01C95AE20EB5}</Project>
-      <Name>CobimExplorer.Rest.Api</Name>
-    </ProjectReference>
+    <Resource Include="Resources\CobimLogo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\CobimLogo.png" />
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CobimExplorerNet\CobimExplorerNet.csproj">
+      <Project>{87771B1C-9FF9-4A47-AB3E-7C76FF5D8DB9}</Project>
+      <Name>CobimExplorerNet</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
