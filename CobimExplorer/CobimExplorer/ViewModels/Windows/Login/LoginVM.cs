@@ -2,10 +2,12 @@
 using Stylet;
 using StyletIoC;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Reflection;
 using System.Net.Http;
 using System.Windows;
 using System.Windows.Input;
@@ -20,6 +22,9 @@ using CobimExplorer.Rest.Api.CobimBase.User;
 using CobimExplorer.ViewModels.Pages;
 using CobimExplorer.Models.User;
 using CobimExplorer.Settings;
+using CobimExplorer.Rest.Api.CobimBase.Explorer;
+using CobimExplorer.Common.LogManager;
+
 // using CobimExplorer.Core.Rest.Api.CobimBase.User;
 // using Windows.Web.Http;
 
@@ -122,7 +127,7 @@ namespace CobimExplorer.ViewModels.Windows.Login
         public HttpClient client { get; set; }
 
         /// <summary>
-        /// 로그인 정보 (계속 호출하지 말고 싱글톤으로 사용해야함.)
+        /// 로그인 정보 
         /// </summary>
         public LoginHelper.LoginPack LoginPack { get; set; }
 
@@ -215,9 +220,15 @@ namespace CobimExplorer.ViewModels.Windows.Login
             base.OnDeactivate();
         }
 
-        private bool CanExecuteMethod(object arg)
+        //private bool CanExecuteMethod(object arg)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        // TODO : 메서드 "CanExecuteMethod" 필요시 수정 예정 (2023.10.4 jbh)
+        private bool CanExecuteMethod(object obj)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         #endregion 기본 메소드
@@ -263,6 +274,12 @@ namespace CobimExplorer.ViewModels.Windows.Login
 
         private void SaveOption(LoginHelper.Login_Access_Token login_access_token)
         {
+            // TODO : 로그 기록시 현재 실행 중인 메서드 위치 기록하기 (2023.10.10 jbh)
+            // 참고 URL - https://slaner.tistory.com/73
+            // 참고 2 URL - https://stackoverflow.com/questions/4132810/how-can-i-get-a-method-name-with-the-namespace-class-name
+            // 참고 3 URL - https://stackoverflow.com/questions/44153/can-you-use-reflection-to-find-the-name-of-the-currently-executing-method
+            var currentMethod = MethodBase.GetCurrentMethod();
+
             try
             {
                 if (!this.ServerPaths.Contains(this.ServerPath))
@@ -270,18 +287,24 @@ namespace CobimExplorer.ViewModels.Windows.Login
                 AppSetting.Default.Login.ServerPath = this.ServerPath;
                 //AppSetting.Default.Login.SiteViewCode = this.SiteViewCode;
 
-                // TODO : 추후 필요시 "this.LoginID", "this.Password" 사용 예정(2023.08.30 jbh)
+                // TODO : 추후 필요시 "this.LoginID", "this.Password" 추가 예정(2023.08.30 jbh)
                 //AppSetting.Default.Login.LoginId = this.LoginID;
                 //AppSetting.Default.Login.Password = this.Password;
                 AppSetting.Default.Login.LoginId = LoginHelper.testId;
-                AppSetting.Default.Login.Password = LoginHelper.testId;
+                AppSetting.Default.Login.Password = LoginHelper.testPassword;
 
                 AppSetting.Default.Login.ServerPaths = this.ServerPaths.ToList<string>();
                 AppSetting.Default.Login.Token = login_access_token;
+
+                // TODO : 응용 프로그램 기본 설정 클래스 (AppSetting) 중 ProjectSetting 클래스 프로퍼티 "Project"에
+                //        테스트 프로젝트 아이디(TestProjectId), 테스트 팀 아이디(TestTeamId) 추가 구현 (2023.09.04 jbh)
+                //        추후 필요 없을시 삭제 예정
+                AppSetting.Default.Project.TestProjectId = ProjectHelper.testProjectId;
+                AppSetting.Default.Project.TestTeamId = ProjectHelper.testTeamId;
             }
             catch (Exception e)
             {
-                Log.Logger.Information("SaveOption Error = " + e.Message);
+                Log.Error(Logger.GetMethodPath(currentMethod) + "SaveOption Error = " + e.Message);
                 MessageBox.Show(e.Message);
                 return;
             }
@@ -323,12 +346,20 @@ namespace CobimExplorer.ViewModels.Windows.Login
             //    inputTenantId = LoginHelper.inputTenantId,
             //};
 
+            // TODO : 로그 기록시 현재 실행 중인 메서드 위치 기록하기 (2023.10.10 jbh)
+            // 참고 URL - https://slaner.tistory.com/73
+            // 참고 2 URL - https://stackoverflow.com/questions/4132810/how-can-i-get-a-method-name-with-the-namespace-class-name
+            // 참고 3 URL - https://stackoverflow.com/questions/44153/can-you-use-reflection-to-find-the-name-of-the-currently-executing-method
+            var currentMethod = MethodBase.GetCurrentMethod();
+
             try
             {
                 MessageBox.Show("로그인 테스트 중입니다.");
 
-                //Log.Logger.Information("웹소켓 연결 시도");
-                //Log.Logger.Information("웹소켓 연결 성공");
+                //Log.Information("웹소켓 연결 시도");
+                //Log.Information("웹소켓 연결 성공");
+
+                Log.Information(Logger.GetMethodPath(currentMethod) + "Http 통신 연결 시도");
 
                 //// TODO : Rest API POST 방식 사용자 로그인 static 메서드 "PostUserLogin" 호출문 구현(2023.08.18 jbh)
                 //var token = await UserRestServer.PostUserLoginAsync(client, LoginPack);
@@ -338,9 +369,16 @@ namespace CobimExplorer.ViewModels.Windows.Login
 
                 if (token.resultData != null && token.resultMessage == null)
                 {
-                    // Console.WriteLine("\nLogin is OK...");
-                    // 로그인 성공 
-                    Log.Logger.Information("로그인 성공");
+                    Log.Information(Logger.GetMethodPath(currentMethod) + "Http 통신 연결 성공");
+
+                    Log.Information(Logger.GetMethodPath(currentMethod) + "로그인 성공");
+
+                    // [테스트 완료] TODO : 로그 레벨(Debug, Verbose, Warning, Error, Fatal) 기록 테스트 진행 (2023.10.11 jbh)
+                    //Log.Debug(Logger.GetMethodPath(currentMethod) + "테스트 Debug 로그인");
+                    //Log.Verbose(Logger.GetMethodPath(currentMethod) + "테스트 Verbose 로그인");
+                    //Log.Warning(Logger.GetMethodPath(currentMethod) + "테스트 Warning 로그인");
+                    //Log.Error(Logger.GetMethodPath(currentMethod) + "테스트 Error 로그인");
+                    //Log.Fatal(Logger.GetMethodPath(currentMethod) + "테스트 Fatal 로그인");
 
                     MessageBox.Show("Login is OK...");
 
@@ -360,7 +398,7 @@ namespace CobimExplorer.ViewModels.Windows.Login
                 else
                 {
                     // 로그인 실패 
-                    Log.Logger.Information("로그인 실패");
+                    Log.Error(Logger.GetMethodPath(currentMethod) + Logger.errorMessage + "로그인 실패");
 
                     //Console.WriteLine("Login is NOT OK...");
                     MessageBox.Show("Login is NOT OK...");
@@ -373,7 +411,7 @@ namespace CobimExplorer.ViewModels.Windows.Login
             }
             catch (Exception e)
             {
-                Log.Logger.Information("로그인 실패 = " + e.Message);
+                Log.Error(Logger.GetMethodPath(currentMethod) + Logger.errorMessage + e.Message);
                 MessageBox.Show(e.Message);
                 loginVM.IsLogin = false;
             }
@@ -408,6 +446,8 @@ namespace CobimExplorer.ViewModels.Windows.Login
             }
             catch (Exception e)
             {
+                // TODO : 오류 발생시 예외처리 throw 구현 (2023.10.6 jbh)
+                // 참고 URL - https://devlog.jwgo.kr/2009/11/27/thrownthrowex/
                 throw;
             }
         }

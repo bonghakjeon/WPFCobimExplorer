@@ -5,10 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Reflection;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using CobimExplorer.Rest.Api.NetWork.Http;
+using CobimUtil;
 
 namespace CobimExplorer.Rest.Api.CobimBase.User
 {
@@ -30,12 +32,20 @@ namespace CobimExplorer.Rest.Api.CobimBase.User
     // 참고 4 URL - https://forum.dotnetdev.kr/t/http/2382/2
     public class UserRestServer
     {
+        #region PostUserLoginAsync
+
         /// <summary>
         /// 사용자 로그인 (POST)
         /// Rest API 메서드 파라미터 "HttpClient client, string PassWord, string inputTenantId"
         /// </summary>
         public static async Task<LoginHelper.Login_Access_Token> PostUserLoginAsync(HttpClient client, LoginHelper.LoginPack loginPack)
         {
+            // TODO : 로그 기록시 현재 실행 중인 메서드 위치 기록하기 (2023.10.10 jbh)
+            // 참고 URL - https://slaner.tistory.com/73
+            // 참고 2 URL - https://stackoverflow.com/questions/4132810/how-can-i-get-a-method-name-with-the-namespace-class-name
+            // 참고 3 URL - https://stackoverflow.com/questions/44153/can-you-use-reflection-to-find-the-name-of-the-currently-executing-method
+            var currentMethod = MethodBase.GetCurrentMethod();
+
             try
             {
                 // TODO : Http 통신 Post 방식 작업 시 서버로 부터 결과값 리턴되지 않고 시간이 길어지면 Time Out 처리 되면서 오류 메시지 출력 기능 구현 예정 (2023.08.30 jbh)
@@ -46,6 +56,9 @@ namespace CobimExplorer.Rest.Api.CobimBase.User
                 //    password = Password,
                 //    inputTenantId = LoginHelper.inputTenantId,
                 //};
+
+                // HttpClient 클래스 객체 "client"의 요청헤더(DefaultRequestHeaders)에 데이터 추가 하기 전 초기화
+                client.DefaultRequestHeaders.Clear();
 
                 // TODO : LoginPack 클래스 객체 "LoginPack" string 클래스 json 문자열(content) 구현 (2023.08.21 jbh)
                 // 참고 URL - https://learn.microsoft.com/ko-kr/dotnet/standard/serialization/system-text-json/how-to?pivots=dotnet-8-0
@@ -64,18 +77,43 @@ namespace CobimExplorer.Rest.Api.CobimBase.User
 
                 LoginHelper.Login_Access_Token token = JsonSerializer.Deserialize<LoginHelper.Login_Access_Token>(json);
 
+                // TODO : 테스트 코드 - 강제로 오류 발생하도록 Exception 생성 하도록 구현 (필요시 사용)  (2023.10.19 jbh)
+                // 참고 URL - https://morm.tistory.com/187
+                // 참고 2 URL - https://learn.microsoft.com/ko-kr/dotnet/csharp/fundamentals/exceptions/creating-and-throwing-exceptions
+                // throw new Exception();
+
+                Logger.Information(currentMethod, "로그인 토큰 성공");
+
+                // [테스트 완료] TODO : 로그 레벨(Debug, Verbose, Warning, Error, Fatal) 기록 테스트 진행 (2023.10.11 jbh)
+                //Logger.Debug(currentMethod, "테스트 Debug 로그인 토큰");
+                //Logger.Verbose(currentMethod, "테스트 Verbose 로그인 토큰");
+                //Logger.Warning(currentMethod, "테스트 Warning 로그인 토큰");
+                //Logger.Error(currentMethod, "테스트 Error 로그인 토큰");
+                //Logger.Fatal(currentMethod, "테스트 Fatal 로그인 토큰");
+
                 return token;
             }
             catch (Exception e)
             {
                 // TODO : Http 통신 Post 방식 작업 시 서버로 부터 결과값 리턴되지 않고 시간이 길어지면 Time Out 처리 되면서 오류 메시지 출력 기능 구현 예정 (2023.08.30 jbh)
-                Log.Logger.Information(e.Message);
+                // Log.Information(LogHelper.GetMethodPath(currentMethod) + e.Message);
+                Logger.Error(currentMethod, Logger.errorMessage + e.Message);
+                // TODO : 오류 발생시 예외처리 throw 구현 (2023.10.6 jbh)
+                // 참고 URL - https://devlog.jwgo.kr/2009/11/27/thrownthrowex/
                 throw;
             }
 
         }
+
+        #endregion PostUserLoginAsync
+
         //public static async Task<Login_Access_Token> PostUserLoginAsync(string LoginID, string PassWord)
         //{
+        // TODO : 로그 기록시 현재 실행 중인 메서드 위치 기록하기 (2023.10.10 jbh)
+        // 참고 URL - https://slaner.tistory.com/73
+        // 참고 2 URL - https://stackoverflow.com/questions/4132810/how-can-i-get-a-method-name-with-the-namespace-class-name
+        // 참고 3 URL - https://stackoverflow.com/questions/44153/can-you-use-reflection-to-find-the-name-of-the-currently-executing-method
+        // var currentMethod = MethodBase.GetCurrentMethod();
         //    try
         //    {
         //        // HttpClient 사용 (POST 방식)
@@ -144,10 +182,14 @@ namespace CobimExplorer.Rest.Api.CobimBase.User
         //    }
         //    catch (Exception e)
         //    {
-        //        Log.Logger.Information(e.Message);
+        //        Logger.Error(currentMethod, Logger.errorMessage + e.Message);
         //        throw;
         //    }
 
         //}
+
+        #region sample
+
+        #endregion sample
     }
 }

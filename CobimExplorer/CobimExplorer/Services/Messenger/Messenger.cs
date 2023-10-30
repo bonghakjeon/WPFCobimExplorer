@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace CobimExplorer.Services.Messenger
 {
+    // TODO : Messenger 클래스 필요시 구현 예정 (2023.08.31 jbh)
+    // 유튜브 참고 URL - https://youtu.be/-6Td1iLBXGw?si=_Lq600jpriCve3dQ
     public class Messenger
     {
         //    List<SubScription> _Subscription = new();

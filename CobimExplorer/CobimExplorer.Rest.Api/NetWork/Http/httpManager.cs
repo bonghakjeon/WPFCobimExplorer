@@ -1,13 +1,15 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Reflection;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using CobimExplorer.Rest.Api.CobimBase.User;
-using Serilog;
+using CobimUtil;
 // using CobimExplorer.Rest.Api.CobimBase.User.LoginHelper;
 //using static CobimExplorer.Rest.Api.CobimBase.User.LoginHelper;
 //using static CobimExplorer.Rest.Api.CobimBase.User.LoginHelper;
@@ -27,6 +29,12 @@ namespace CobimExplorer.Rest.Api.NetWork.Http
         /// <returns>Result 값</returns>
         public static async Task<LoginHelper.Login_Access_Token> PostLoginConnect(HttpClient client, LoginHelper.LoginPack LoginPack)
         {
+            // TODO : 로그 기록시 현재 실행 중인 메서드 위치 기록하기 (2023.10.10 jbh)
+            // 참고 URL - https://slaner.tistory.com/73
+            // 참고 2 URL - https://stackoverflow.com/questions/4132810/how-can-i-get-a-method-name-with-the-namespace-class-name
+            // 참고 3 URL - https://stackoverflow.com/questions/44153/can-you-use-reflection-to-find-the-name-of-the-currently-executing-method
+            var currentMethod = MethodBase.GetCurrentMethod();
+
             try
             {
                 var grant = new List<KeyValuePair<string, string>>();
@@ -54,7 +62,9 @@ namespace CobimExplorer.Rest.Api.NetWork.Http
             }
             catch (Exception e)
             {
-                Log.Logger.Information(e.Message);
+                Logger.Error(currentMethod, Logger.errorMessage + e.Message);
+                // TODO : 오류 발생시 예외처리 throw 구현 (2023.10.6 jbh)
+                // 참고 URL - https://devlog.jwgo.kr/2009/11/27/thrownthrowex/
                 throw;
             }
         }
@@ -64,6 +74,12 @@ namespace CobimExplorer.Rest.Api.NetWork.Http
         /// </summary>
         public static async Task<HttpResponseMessage> Connect(HttpClient client, HttpRequestMessage request)
         {
+            // TODO : 로그 기록시 현재 실행 중인 메서드 위치 기록하기 (2023.10.10 jbh)
+            // 참고 URL - https://slaner.tistory.com/73
+            // 참고 2 URL - https://stackoverflow.com/questions/4132810/how-can-i-get-a-method-name-with-the-namespace-class-name
+            // 참고 3 URL - https://stackoverflow.com/questions/44153/can-you-use-reflection-to-find-the-name-of-the-currently-executing-method
+            var currentMethod = MethodBase.GetCurrentMethod();
+
             try
             {
 
@@ -88,12 +104,15 @@ namespace CobimExplorer.Rest.Api.NetWork.Http
                     msg += response.Content.ReadAsStringAsync().Result + "\n\n";
                 }
                 //Replace password and client secret
-                Serilog.Log.Debug(msg);
+                // Serilog.Log.Debug(msg);
+                Logger.Debug(currentMethod, Logger.debugMessage + msg);
                 return response;
             }
             catch(Exception e)
             {
-                Log.Logger.Information(e.Message);
+                Logger.Error(currentMethod, Logger.errorMessage + e.Message);
+                // TODO : 오류 발생시 예외처리 throw 구현 (2023.10.6 jbh)
+                // 참고 URL - https://devlog.jwgo.kr/2009/11/27/thrownthrowex/
                 throw;
             }
             

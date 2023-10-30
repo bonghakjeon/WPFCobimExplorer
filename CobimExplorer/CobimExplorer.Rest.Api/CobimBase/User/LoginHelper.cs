@@ -8,17 +8,23 @@ namespace CobimExplorer.Rest.Api.CobimBase.User
 {
     public class LoginHelper
     {
+        #region 프로퍼티 
+
+        // TODO : 테스트 로그인 아이디 (기존) "dvl001" -> (변경) "ldh0906" 및 테스트 진행 (2023.09.12 jbh)
         /// <summary>
         /// 1. 로그인
         /// 요청 파라미터 - 테스트 아이디
         /// </summary>
-        public const string testId = "dvl001";
+        // public const string testId = "dvl001";
+        public const string testId = "ldh0906";
 
+        // TODO : 테스트 로그인 비밀번호 (기존) "qwer1234!" -> (변경) "1234qwer!" 및 테스트 진행 (2023.09.12 jbh)
         /// <summary>
         /// 1. 로그인
         /// 요청 파라미터 - 테스트 비밀번호 
         /// </summary>
-        public const string testPassword = "qwer1234!";
+        // public const string testPassword = "qwer1234!";
+        public const string testPassword = "1234qwer!";
 
         /// <summary>
         /// 1. 로그인
@@ -37,6 +43,20 @@ namespace CobimExplorer.Rest.Api.CobimBase.User
         /// 요청 Header - Content-Type	
         /// </summary>
         public const string contentType = "application/json";
+
+        /// <sumary>
+        /// 로그인 토큰
+        /// </sumary>
+        public const string authorization = "Authorization";
+
+        /// <summary>
+        /// 테넌트 아이디
+        /// </summary>
+        public const string tenant = "Tenant";
+
+        #endregion 프로퍼티 
+
+        #region 클래스 - LoginPack
 
         /// <summary>
         /// 로그인 정보 
@@ -64,6 +84,10 @@ namespace CobimExplorer.Rest.Api.CobimBase.User
             /// </summary>
             // public string auth_server_url { get; set; }
         }
+
+        #endregion 클래스 - LoginPack
+
+        #region 클래스 - Login_Access_Token
 
         /// <summary>
         /// 로그인 응답 결과 토큰 키
@@ -94,5 +118,11 @@ namespace CobimExplorer.Rest.Api.CobimBase.User
 
             public string actionUserInfo { get; set; }
         }
+
+        #endregion 클래스 -  Login_Access_Token
+
+        #region sample
+
+        #endregion sample
     }
 }

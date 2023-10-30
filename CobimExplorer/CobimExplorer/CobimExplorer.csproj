@@ -60,9 +60,6 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CobimExplorer.Rest.Api">
-      <HintPath>..\CobimExplorer.Rest.Api\bin\Debug\CobimExplorer.Rest.Api.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AppCenter, Version=0.0.0.0, Culture=neutral, PublicKeyToken=8a600e2fee7ba272, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AppCenter.5.0.2\lib\net472\Microsoft.AppCenter.dll</HintPath>
     </Reference>
@@ -83,6 +80,15 @@
     </Reference>
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.3.0.1\lib\net471\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.Console, Version=4.1.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.Console.4.1.0\lib\net45\Serilog.Sinks.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.Debug, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.Debug.2.0.0\lib\net46\Serilog.Sinks.Debug.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File, Version=5.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.File.5.0.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
     </Reference>
     <Reference Include="SQLitePCLRaw.batteries_v2, Version=2.1.0.1603, Culture=neutral, PublicKeyToken=8226ea5df37bcae9, processorArchitecture=MSIL">
       <HintPath>..\packages\SQLitePCLRaw.bundle_green.2.1.0\lib\net461\SQLitePCLRaw.batteries_v2.dll</HintPath>
@@ -155,11 +161,13 @@
     <Compile Include="Commands\ButtonCommand.cs" />
     <Compile Include="Commands\RibbonCommand.cs" />
     <Compile Include="Common\BindingProxy\BindingProxy.cs" />
+    <Compile Include="Common\Extensions\DictionaryExtensions.cs" />
     <Compile Include="Common\Extensions\VMNameExtensions.cs" />
-    <Compile Include="Common\LogManager\ExplorerLogger.cs" />
+    <Compile Include="Common\LogManager\Logger.cs" />
     <Compile Include="Controls\RibbonControl.xaml.cs">
       <DependentUpon>RibbonControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\ExplorerConverter.cs" />
     <Compile Include="Interface\Page\IPageBase.cs" />
     <Compile Include="Message\ChangeViewModelMsg.cs" />
     <Compile Include="Models\Explorer\ExplorerView.cs" />
@@ -171,6 +179,7 @@
     <Compile Include="Settings\AppSetting.cs" />
     <Compile Include="Settings\LoginSetting.cs" />
     <Compile Include="Settings\SettingPartBase.cs" />
+    <Compile Include="Settings\ProjectSetting.cs" />
     <Compile Include="TestStatic\CommonButtonTarget.cs" />
     <Compile Include="Test\Folder.cs" />
     <Compile Include="Utils\DirectoryUtils.cs" />
@@ -238,6 +247,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -314,10 +324,32 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CobimExplorer.Rest.Api\CobimExplorer.Rest.Api.csproj">
+      <Project>{7f08fde7-805e-43e8-a5ad-01c95ae20eb5}</Project>
+      <Name>CobimExplorer.Rest.Api</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CobimExplorerNet\CobimExplorerNet.csproj">
       <Project>{87771B1C-9FF9-4A47-AB3E-7C76FF5D8DB9}</Project>
       <Name>CobimExplorerNet</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Team.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Project.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\CloserLook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\FileAdd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Click.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

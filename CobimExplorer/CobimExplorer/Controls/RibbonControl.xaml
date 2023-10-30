@@ -12,7 +12,7 @@
                         Ribbon 구현시 참고 URL - https://www.c-sharpcorner.com/UploadFile/0b73e1/ribbon-control-in-wpf-4-5/
                         Ribbon 구현시 참고 2 URL - https://www.youtube.com/watch?v=04HJXx290g8-->
         <ribbon:Ribbon x:Name="rbMenu" SelectedIndex="0" Background="LightGray">
-            <ribbon:RibbonTab Header="TestVM" KeyTip="T">
+            <ribbon:RibbonTab Header="테스트" KeyTip="T">
                 <ribbon:RibbonGroup x:Name="GroupTestVM" Header="TestVM">
                     <Button Width="100" Height="30" Command="{Binding TestVMCommand}" CommandParameter="TestVM">TEST</Button>
 
@@ -22,12 +22,12 @@
                 <ribbon:RibbonGroup x:Name="GroupEditor" Header="TestEditor">
                 </ribbon:RibbonGroup>
             </ribbon:RibbonTab>
-            <ribbon:RibbonTab Header="ExplorerVM" KeyTip="E">
+            <ribbon:RibbonTab Header="성과품" KeyTip="E">
                 <ribbon:RibbonGroup x:Name="TestGroupExpVM" Header="TestExplorerVM">
                     <Button Width="100" Height="30" Command="{Binding TestExpVMCommand}" CommandParameter="TestExplorerVM">Test Explorer</Button>
                 </ribbon:RibbonGroup>
-                <ribbon:RibbonGroup x:Name="GroupExpVM" Header="ExplorerVM">
-                    <Button Width="100" Height="30" Command="{Binding ExpVMCommand}" CommandParameter="ExplorerVM">Explorer</Button>
+                <ribbon:RibbonGroup x:Name="GroupExpVM" Header="성과품(CDE)">
+                    <Button Width="100" Height="30" Command="{Binding ExpVMCommand}" CommandParameter="ExplorerVM">성과품(CDE) 파일</Button>
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="GroupLazyTreeVM" Header="TestLazyTreeVM">
                     <Button Width="100" Height="30" Command="{Binding TestLazyTreeVMCommand}" CommandParameter="TestLazyTreeVM">Test LazyTree</Button>

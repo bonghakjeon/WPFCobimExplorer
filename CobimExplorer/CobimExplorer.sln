@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CobimExplorer.Rest.Api", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CobimExplorerNet", "CobimExplorerNet\CobimExplorerNet.csproj", "{87771B1C-9FF9-4A47-AB3E-7C76FF5D8DB9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CobimUtil", "CobimUtil\CobimUtil.csproj", "{E445E4DA-9740-45C1-9837-6B9AA8A73F01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,14 @@ Global
 		{87771B1C-9FF9-4A47-AB3E-7C76FF5D8DB9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{87771B1C-9FF9-4A47-AB3E-7C76FF5D8DB9}.Release|x64.ActiveCfg = Release|Any CPU
 		{87771B1C-9FF9-4A47-AB3E-7C76FF5D8DB9}.Release|x64.Build.0 = Release|Any CPU
+		{E445E4DA-9740-45C1-9837-6B9AA8A73F01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E445E4DA-9740-45C1-9837-6B9AA8A73F01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E445E4DA-9740-45C1-9837-6B9AA8A73F01}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E445E4DA-9740-45C1-9837-6B9AA8A73F01}.Debug|x64.Build.0 = Debug|Any CPU
+		{E445E4DA-9740-45C1-9837-6B9AA8A73F01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E445E4DA-9740-45C1-9837-6B9AA8A73F01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E445E4DA-9740-45C1-9837-6B9AA8A73F01}.Release|x64.ActiveCfg = Release|Any CPU
+		{E445E4DA-9740-45C1-9837-6B9AA8A73F01}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -14,6 +14,7 @@ using CobimExplorer.Services.Page;
 using CobimExplorer.Interface.Page;
 using CobimExplorer.Message;
 using CobimExplorer.Commands;
+using CobimExplorer.Common.LogManager;
 using CobimExplorer.ViewModels.Pages;
 using CobimExplorer.ViewModels.Windows.Login;
 
@@ -225,6 +226,12 @@ namespace CobimExplorer.ViewModels
 
         private void InitSetting()
         {
+            // TODO : 로그 기록시 현재 실행 중인 메서드 위치 기록하기 (2023.10.10 jbh)
+            // 참고 URL - https://slaner.tistory.com/73
+            // 참고 2 URL - https://stackoverflow.com/questions/4132810/how-can-i-get-a-method-name-with-the-namespace-class-name
+            // 참고 3 URL - https://stackoverflow.com/questions/44153/can-you-use-reflection-to-find-the-name-of-the-currently-executing-method
+            var currentMethod = System.Reflection.MethodBase.GetCurrentMethod();
+
             try
             {
                 var vms = Container.GetAll<IPageBase>().ToArray();   // <IPageBase> 인터페이스를 상속 받는 모든 클래스 요소들을 컨테이너에서 가져와서(Container.GetAll)
@@ -240,7 +247,7 @@ namespace CobimExplorer.ViewModels
             }
             catch (Exception e)
             {
-                Log.Logger.Information("오류 :" + e.Message);
+                Log.Error(Logger.GetMethodPath(currentMethod) + Logger.errorMessage + e.Message);
                 // Application.Current.Shutdown();
             }
         }

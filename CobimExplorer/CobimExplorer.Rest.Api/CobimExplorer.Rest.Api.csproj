@@ -34,6 +34,7 @@
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.3.0.1\lib\net471\Serilog.dll</HintPath>
     </Reference>
@@ -72,8 +73,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CobimBase\Explorer\ContainerHelper.cs" />
     <Compile Include="CobimBase\Explorer\ExplorerRestServer.cs" />
+    <Compile Include="CobimBase\Explorer\FileHelper.cs" />
+    <Compile Include="CobimBase\Explorer\FolderHelper.cs" />
     <Compile Include="CobimBase\Explorer\ProjectHelper.cs" />
+    <Compile Include="CobimBase\Explorer\TeamHelper.cs" />
     <Compile Include="CobimBase\User\LoginHelper.cs" />
     <Compile Include="CobimBase\User\UserRestServer.cs" />
     <Compile Include="NetWork\Http\httpManager.cs" />
@@ -83,6 +88,11 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\CobimUtil\CobimUtil.csproj">
+      <Project>{e445e4da-9740-45c1-9837-6b9aa8a73f01}</Project>
+      <Name>CobimUtil</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
